@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -20,6 +21,8 @@ public class HelloApplication extends Application implements EventHandler {
     private Button scaleButton;
     private Rotate rotate;
     private double angle;
+    private double blurVal;
+    private BoxBlur blur;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,6 +32,8 @@ public class HelloApplication extends Application implements EventHandler {
         scaleButton = new Button("Scale");
         rotate = new Rotate();
         angle = 0.0;
+        blurVal = 1.0;
+        blur = new BoxBlur(1.0, 1.0, 1);
 
         // Register our buttons
         rotateButton.setOnAction(this);
@@ -41,7 +46,7 @@ public class HelloApplication extends Application implements EventHandler {
         flowPaneRoot.getChildren().addAll(rotateButton, blurButton, scaleButton, reflect);
 
         // set up scene and stage
-        Scene scene = new Scene(flowPaneRoot, 400, 250);
+        Scene scene = new Scene(flowPaneRoot, 200, 150);
         stage.setScene(scene);
         stage.show();
 
@@ -59,6 +64,21 @@ public class HelloApplication extends Application implements EventHandler {
             rotate.setAngle(angle);
             rotate.setPivotX(rotateButton.getWidth() / 2);
             rotate.setPivotY(rotateButton.getHeight() / 2);
+        }
+
+        if(event.getSource().equals(blurButton)) {
+            // each time button is pressed, it's blur is changed.
+            if(blurVal == 10.0) {
+                blurVal = 1.0;
+                blurButton.setEffect(null);
+                blurButton.setText("Blur off");
+            } else {
+                blurVal++;
+                blurButton.setEffect(blur);
+                blurButton.setText("Blur On");
+            }
+            blur.setWidth(blurVal / 2);
+            blur.setHeight(blurVal / 2);
         }
     }
 }
