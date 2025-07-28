@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Reflection;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
@@ -26,6 +27,7 @@ public class HelloApplication extends Application implements EventHandler {
     private BoxBlur blur;
     private double scaleFactor;
     private Scale scale;
+    private Reflection reflection;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,6 +41,7 @@ public class HelloApplication extends Application implements EventHandler {
         blur = new BoxBlur(1.0, 1.0, 1);
         scaleFactor = 0.6;
         scale = new Scale(scaleFactor, scaleFactor);
+        reflection = new Reflection();
 
         // Register our buttons
         rotateButton.setOnAction(this);
@@ -46,7 +49,7 @@ public class HelloApplication extends Application implements EventHandler {
         scaleButton.setOnAction(this);
 
         Label reflect = new Label("Reflection adds visual sparkle");
-        FlowPane flowPaneRoot = new FlowPane(5, 5);
+        FlowPane flowPaneRoot = new FlowPane(15, 15);
         flowPaneRoot.setAlignment(Pos.CENTER);
         flowPaneRoot.getChildren().addAll(rotateButton, blurButton, scaleButton, reflect);
 
@@ -58,6 +61,11 @@ public class HelloApplication extends Application implements EventHandler {
         // setup transformation
         rotateButton.getTransforms().add(rotate);
         scaleButton.getTransforms().add(scale);
+        reflection.setTopOpacity(0.7);
+        reflection.setBottomOpacity(0.3);
+
+        // Use our label and apply the reflection effect
+        reflect.setEffect(reflection);
     }
 
     public static void main(String[] args) {
