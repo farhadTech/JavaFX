@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxscenebuilder.Controller">
+   <children>
+      <Button id="clickMeButton" fx:id="clickMeButton" layoutX="253.0" layoutY="166.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="194.0" style="-fx-background-color: #3399CC;" text="Click Me!" textFill="#e7eaf2">
+         <font>
+            <Font name="Verdana Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label id="labelId" fx:id="labelId" layoutX="253.0" layoutY="246.0" prefHeight="18.0" prefWidth="194.0">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
