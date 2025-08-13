@@ -1,6 +1,5 @@
 package com.example.loginscreen.controller;
 
-import com.example.loginscreen.Main;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -10,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,32 +24,13 @@ public class LoginController {
     private URL location;
 
     @FXML
-    private Label detailsWelcomeLabel;
-
-    @FXML
-    private Label detailsName;
-
-    @FXML
-    private Label detailsAgeId;
-
-    @FXML
-    private Label detailsProfession;
-
-    @FXML
-    private Label detailsWeb;
-
-    @FXML
-    private Label detailsTwitter;
-
-    @FXML
-    private JFXButton loginButton;
+    private JFXTextField loginUsername;
 
     @FXML
     private JFXPasswordField loginPassword;
 
     @FXML
-    private JFXTextField loginUsername;
-
+    private JFXButton loginButton;
 
 
     @FXML
@@ -78,15 +57,20 @@ public class LoginController {
         // Get the main window
         loginButton.getScene().getWindow().hide();
 
-        if(!loginUsername.getText().toString().trim().equals("") && !loginPassword.getText().toString().trim().equals("")) {
+        if(!loginUsername.getText().trim().isEmpty() && !loginPassword.getText().trim().isEmpty()) {
             // We are ready to go
-            Stage detailsStage = new Stage();
-//            Parent root = FXMLLoader.load(getClass().getResource("com.example.loginscreen.details.fxml"));
-            FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/com/example/loginscreen/details.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 700, 400);
-            detailsStage.setScene(scene);
-            detailsStage.show();
-            detailsStage.setResizable(false);
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/loginscreen/details.fxml"));
+            loader.load();
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+
+            DetailsController detailsController = loader.getController();
+            detailsController.setDetails(loginUsername.getText(), 31, "Web and App Developer");
+            stage.show();
         }
     }
 }
