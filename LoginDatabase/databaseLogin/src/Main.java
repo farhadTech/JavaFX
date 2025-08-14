@@ -15,8 +15,9 @@ public class Main {
         connection = dbHandler.getDbConnection();
 
 //        writeToDb();
-//        readFromDb();
+        readFromDb();
         updateDb("firstname", "lastname", "username", "addresss", 0, 1);
+        deleteUser(1);
     }
 
     public static void writeToDb() throws SQLException {
@@ -70,5 +71,11 @@ public class Main {
         preparedStatement.close();
     }
 
-
+    public static void deleteUser(int id) throws SQLException {
+        String query = "DELETE FROM users WHERE userid = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
 }
