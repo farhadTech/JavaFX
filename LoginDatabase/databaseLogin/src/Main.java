@@ -1,14 +1,32 @@
+import helper.DBHandler;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Main {
+    static private DBHandler dbHandler;
+    static private Connection connection;
+    static private PreparedStatement preparedStatement;
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        dbHandler = new DBHandler();
+        connection = dbHandler.getDbConnection();
 
-        Connection connection =  DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/login", "root", "Missing_Voyager#2441139qwert");
+        String insert = "INSERT INTO users(firstName, lastName, username, address, age)"
+                + "VALUES (?, ?, ?, ?, ?)";
 
-        System.out.println("Connected to the database " + connection.getCatalog() + " successfully");
+        preparedStatement = connection.prepareStatement(insert);
+
+        preparedStatement.setString(1, "Paulo");
+        preparedStatement.setString(2, "Dichone");
+        preparedStatement.setString(3, "paulod");
+        preparedStatement.setString(4, "1234 South Beach");
+        preparedStatement.setInt(5, 31);
+
+
+        // executing
+        int rowInserted = preparedStatement.executeUpdate();
+        System.out.println("Row inserted into table users: " + rowInserted);
     }
 }
